@@ -19,7 +19,7 @@ Delete a specific record from the search history by clicking the delete button.
 If the user enters an invalid city or country name, an appropriate error message is displayed on the UI, informing the user of the issue.
 
 # Desktop view:
-![image](https://github.com/user-attachments/assets/7caa657c-b81e-4d97-b841-cebf7d5c5c91)
+![image](https://github.com/user-attachments/assets/b73a14a0-8562-49dd-9601-6f08044239c5)
 
 # Mobile view:
 ![image](https://github.com/user-attachments/assets/776f2494-0100-40c9-9919-8ae0f03d5369)
