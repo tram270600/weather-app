@@ -1,0 +1,18 @@
+:root {
+    --white: #ffff;
+    --dark-slate: #495670;
+    --slate: #8892b0;
+    --light-slate: #a8b2d1;
+    --lightest-slate: #ccd6f6;
+    --purple-500: #6C40B5;
+    --gray-500: #666666;
+  }
+
+  @mixin fontStyle($weight, $size, $height, $color) {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: $weight;
+    font-size: $size;
+    line-height: $height;
+    color: $color;
+  }

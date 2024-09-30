@@ -1,0 +1,48 @@
+@import "../styles/general.scss";
+.searchBtn {
+  padding: 12px;
+}
+
+.search {
+  flex-grow: 3;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.weatherInfo--light {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(60px);
+}
+
+.weatherIcon {
+  position: absolute;
+  right: 0px;
+  top: -120px;
+}
+
+.title {
+  @include fontStyle(400, 16px, 20px, black);
+}
+
+.degree {
+  @include fontStyle(900, 96px, 120px, var(--purple-500));
+}
+
+.content--bold {
+  @include fontStyle(700, 16px, 20px, var(--gray-500));
+}
+
+.content--light {
+  @include fontStyle(400, 16px, 20px, var(--gray-500));
+}
+
+.container {
+  overflow: auto; /* Ensure scrolling is still possible */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.container::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
