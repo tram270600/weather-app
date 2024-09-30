@@ -18,7 +18,7 @@
 .weatherIcon {
   position: absolute;
   right: 0px;
-  top: -120px;
+  top: -80px;
 }
 
 .title {
@@ -45,4 +45,19 @@
 
 .container::-webkit-scrollbar {
   display: none; /* For Chrome, Safari, and Opera */
+}
+
+
+/* Larger screens (tablet and above) */
+@media only screen and (min-width: 600px) {
+  .weatherIcon {
+    top: -120px;
+  }
+}
+
+/* Even larger screens (desktop) */
+@media only screen and (min-width: 1024px) {
+  .weatherIcon {
+    top: -120px;
+  }
 }

@@ -1,4 +1,6 @@
 import { formatDateTime } from "./dateTime";
+import Sun from "../assets/sun.png";
+import Cloud from "../assets/cloud.png";
 
 const ZERO_POINT_OFFSET = 273.15;
 
@@ -24,7 +26,31 @@ const toWeatherDTO = (data) => {
   };
 };
 
-export { toWeatherDTO };
+const getWeatherIcon = (description) => {
+  switch (description) {
+    case "Clouds":
+    case "Rain":
+      return (
+        <img
+          src={Cloud}
+          className="weatherIcon w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72"
+          alt="Cloud"
+        />
+      );
+    case "Sun":
+      return (
+        <img
+          src={Sun}
+           className="weatherIcon w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72"
+          alt="Sun"
+        />
+      );
+    default:
+      return null;
+  }
+};
+
+export { toWeatherDTO, getWeatherIcon };
 
 // type WeatherDTO = {
 //     locationName: string,

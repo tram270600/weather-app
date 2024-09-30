@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import Sun from "../assets/sun.png";
-import Cloud from "../assets/cloud.png";
 import LocationInfoBar from "./components/LocationInfoBar/LocationInfoBar";
 import "../styles/WeatherPage.scss";
 import SearchBar from "./components/SearchBar/SearchBar";
 import axios from "axios";
-import { toWeatherDTO } from "../utils/weatherData";
+import { toWeatherDTO, getWeatherIcon } from "../utils/weatherData";
 import { sortDateTimeLastestFirst } from "../utils/sort";
 
 function WeatherPage() {
-  const API_KEY = "3f2b8a0d44d2c2797bc82b61acb21ec8";
+  const API_KEY = process.env.REACT_APP_API_KEY;
   const [searchHistoryList, setSearchHistoryList] = useState([]);
+  const [error, setError] = useState("");
   const [weatherInfo, setWeatherInfo] = useState({
     locationName: "Johor, MY",
     dateTime: "01-09-2022 09:41 AM",
@@ -20,7 +19,6 @@ function WeatherPage() {
     humidity: 58,
     description: "Clouds",
   });
-  const [error, setError] = useState("");
 
   const handleSearch = (city, country) => {
     axios
@@ -54,35 +52,10 @@ function WeatherPage() {
     setSearchHistoryList(updatedHistoryList);
   };
 
-  const getWeatherIcon = (description) => {
-    switch (description) {
-      case "Clouds":
-      case "Rain":
-        return (
-          <img
-            src={Cloud}
-            className="weatherIcon w-48 h-48 md:w-72 md:h-72"
-            alt="Cloud"
-          />
-        );
-      case "Sun":
-        return (
-          <img
-            src={Sun}
-             className="weatherIcon w-48 h-48 md:w-72 md:h-72"
-            alt="Sun"
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <div
-      className={`bg-cover ${
-        searchHistoryList.length <= 1 ? "h-screen" : ""
-      } bg-weather-pattern-light`}
+      className={`bg-cover ${searchHistoryList.length <= 1 ? "h-screen" : ""
+        } bg-weather-pattern-light`}
     >
       <div className="max-w-2xl pt-6 flex flex-col items-start justify-center gap-28 mx-4 md:m-auto md:pt-0">
         {/* Search bar */}
@@ -95,16 +68,25 @@ function WeatherPage() {
           <div className="m-5 md:m-12">
             {/* Today Weather Information */}
             <span className="title">Today's Weather</span>
-            <p className="degree">{weatherInfo.temperature}&deg;</p>
-            <p className="content">
-              H: {weatherInfo.highTemperature}&deg; L:{" "}
-              {weatherInfo.lowTemperature}&deg;
-            </p>
-            <div className="flex gap-4 content--light justify-between">
-              <p className="content--bold">{weatherInfo.locationName}</p>
-              <p>{weatherInfo.dateTime}</p>
-              <p>Humidity: {weatherInfo.humidity}%</p>
-              <p>{weatherInfo.description}</p>
+            <div className="flex items-end">
+              <div className="w-full">
+                <p className="degree">{weatherInfo.temperature}&deg;</p>
+                <p className="content">
+                  H: {weatherInfo.highTemperature}&deg; L:{" "}
+                  {weatherInfo.lowTemperature}&deg;
+                </p>
+                <div className="flex gap-4 content--light justify-between">
+                  <p className="content--bold">{weatherInfo.locationName}</p>
+                  <p className="hidden md:block">{weatherInfo.dateTime}</p>
+                  <p className="hidden md:block">Humidity: {weatherInfo.humidity}%</p>
+                  <p className="hidden md:block">{weatherInfo.description}</p>
+                </div>
+              </div>
+              <div className="w-full text-right text-grey-500 md:hidden">
+                <p>{weatherInfo.description}</p>
+                <p>Humidity: {weatherInfo.humidity}%</p>
+                <p>{weatherInfo.dateTime}</p>
+              </div>
             </div>
 
             {/* Search History List */}
