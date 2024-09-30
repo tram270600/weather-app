@@ -9,6 +9,7 @@ import { sortDateTimeLastestFirst } from "../utils/sort";
 function WeatherPage() {
   const API_KEY = process.env.REACT_APP_API_KEY;
   const [searchHistoryList, setSearchHistoryList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [weatherInfo, setWeatherInfo] = useState({
     locationName: "Johor, MY",
@@ -21,6 +22,7 @@ function WeatherPage() {
   });
 
   const handleSearch = (city, country) => {
+    setLoading(true);
     axios
       .get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}`
@@ -33,10 +35,12 @@ function WeatherPage() {
           ...searchHistoryList,
           { locationName, dateTime },
         ]);
+        setLoading(false);
         setError("");
       })
       .catch(() => {
         setError("Weather Information cannot be found");
+        setLoading(false);
       });
   };
 
@@ -51,6 +55,10 @@ function WeatherPage() {
     );
     setSearchHistoryList(updatedHistoryList);
   };
+
+  if (!weatherInfo) {
+    return (<div> No weather info found</div>)
+  }
 
   return (
     <div

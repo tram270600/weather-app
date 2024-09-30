@@ -1,34 +1,33 @@
 import { ReactComponent as SearchIcon } from "../../../assets/search-icon.svg";
-import React, { useRef } from "react";
+import React, { useState } from "react";
 
 function SearchBar({ errorMessage = "", handleSearch }) {
-  const cityInputRef = useRef(null);
-  const countryInputRef = useRef(null);
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
 
   return (
     <div className="flex flex-col w-full">
       <div className="flex gap-4 w-full mt-6 items-center h-12">
         <label className="hidden md:block">City: </label>
         <input
-          ref={cityInputRef}
+          value={city}
           className="search bg-white/80 h-full w-full pl-5 rounded-[8px] md:rounded-[20px] py-5 md:py-0"
           name="city"
           placeholder="Enter city"
+          onChange={(e) => setCity(e.target.value)}
         />
         <label className="hidden md:block">Country: </label>
         <input
-          ref={countryInputRef}
+          value={country}
           className="search bg-white/80 h-full w-full pl-5 rounded-[8px] md:rounded-[20px]"
           name="country"
           placeholder="Enter country"
+          onChange={(e) => setCountry(e.target.value)}
         />
         <button
           className="searchBtn bg-[--purple-500] rounded-[8px] md:rounded-[20px]"
           onClick={() =>
-            handleSearch(
-              cityInputRef.current.value,
-              countryInputRef.current.value
-            )
+            handleSearch(city, country)
           }
         >
           <SearchIcon />
