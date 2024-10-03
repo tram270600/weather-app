@@ -1,0 +1,17 @@
+.historyBtn--light {
+    background-color: white;
+    box-shadow: 0px 4px 12px 0px #0000001A;
+    width: 36px;
+    height: 36px;
+    border-radius: 50px;
+}
+
+.historyBtn--light svg {
+    fill: var(--grey-500);
+    width: 34px;
+}
+
+.historyBtn--light svg g {
+    fill: var(--grey-500);
+    width: 16px;
+}
