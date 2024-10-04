@@ -8,7 +8,9 @@ import { HandleItemFunction, SearchHistory } from "../utils/typeUtils";
 
 function WeatherPage() {
   const API_KEY = process.env.REACT_APP_API_KEY;
-  const [searchHistoryList, setSearchHistoryList] = useState<SearchHistory[]>([]);
+  const [searchHistoryList, setSearchHistoryList] = useState<SearchHistory[]>(
+    []
+  );
   const [, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [weatherInfo, setWeatherInfo] = useState({
@@ -33,7 +35,7 @@ function WeatherPage() {
         setWeatherInfo(weatherDTO);
         setSearchHistoryList([
           { locationName, dateTime },
-          ...searchHistoryList
+          ...searchHistoryList,
         ]);
         setLoading(false);
         setError("");
@@ -57,15 +59,14 @@ function WeatherPage() {
   };
 
   if (!weatherInfo) {
-    return (<div> No weather info found</div>)
+    return <div> No weather info found</div>;
   }
-
-  console.log("origin", searchHistoryList, "\n reverse: ", [...searchHistoryList].reverse())
 
   return (
     <div
-      className={`bg-cover ${searchHistoryList.length <= 1 ? "h-screen" : ""
-        } bg-weather-pattern-light`}
+      className={`bg-cover ${
+        searchHistoryList.length <= 1 ? "h-screen" : ""
+      } bg-weather-pattern-light`}
     >
       <div className="max-w-2xl pt-6 flex flex-col items-start justify-center gap-28 mx-4 md:m-auto md:pt-0">
         {/* Search bar */}
@@ -81,7 +82,7 @@ function WeatherPage() {
             <div className="flex items-end">
               <div className="w-full">
                 {/* Apply loading for a long waiting response */}
-                {/* {loading ? <LoadingDot /> : <p className="degree">{weatherInfo.temperature}&deg;</p>} */}
+                {/* {loading ? <p> Loading... </p> : <p className="degree">{weatherInfo.temperature}&deg;</p>} */}
                 <p className="degree">{weatherInfo.temperature}&deg;</p>
                 <p className="content">
                   H: {weatherInfo.highTemperature}&deg; L:{" "}
@@ -90,7 +91,9 @@ function WeatherPage() {
                 <div className="flex gap-4 content--light justify-between">
                   <p className="content--bold">{weatherInfo.locationName}</p>
                   <p className="hidden md:block">{weatherInfo.dateTime}</p>
-                  <p className="hidden md:block">Humidity: {weatherInfo.humidity}%</p>
+                  <p className="hidden md:block">
+                    Humidity: {weatherInfo.humidity}%
+                  </p>
                   <p className="hidden md:block">{weatherInfo.description}</p>
                 </div>
               </div>
@@ -107,19 +110,17 @@ function WeatherPage() {
                 <p className="title">Search History</p>
                 <div className="flex flex-col mt-5 gap-4">
                   {searchHistoryList.length > 0 ? (
-                    searchHistoryList.map(
-                      (history) => {
-                        return (
-                          <LocationInfoBar
-                            key={history.locationName + history.dateTime}
-                            name={history.locationName}
-                            dateTime={history.dateTime}
-                            onItemRecall={handleItemRecall}
-                            onItemRemove={handleItemRemove}
-                          ></LocationInfoBar>
-                        );
-                      }
-                    )
+                    searchHistoryList.map((history, id) => {
+                      return (
+                        <LocationInfoBar
+                          key={id}
+                          name={history.locationName}
+                          dateTime={history.dateTime}
+                          onItemRecall={handleItemRecall}
+                          onItemRemove={handleItemRemove}
+                        ></LocationInfoBar>
+                      );
+                    })
                   ) : (
                     <h3 className="text-center"> No Record </h3>
                   )}
